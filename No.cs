@@ -17,7 +17,9 @@ namespace arvoreAVL
         public No(int valor)
         {
             this.valor = valor;
-            this.altura = 1;
+            Esquerdo = null;
+            Direito = null;
+            altura = 1;
         }
     }
 }
