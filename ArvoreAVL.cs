@@ -114,18 +114,121 @@ namespace arvoreAVL
 
             return x;
         }
-
-
-        public void Remover(int valor)
-        {
-
-        }
-
         public void Buscar(int valor)
         {
-            
+            No atual = Raiz;
+
+            while (atual != null)
+            {
+                if (valor == atual.valor)
+                {
+                    Console.WriteLine("Valor encontrado");
+                    return;
+                }
+                else if (valor < atual.valor)
+                {
+                    atual = atual.Esquerdo;
+                }
+                else
+                {
+                    atual = atual.Direito;
+                }
+            }
+
+            Console.WriteLine("Valor não encontrado");
+        }
+        public void Remover(int valor)
+        {
+            Raiz = RemoverRecursivo(Raiz, valor);
         }
 
+        private No RemoverRecursivo(No no, int valor)
+        {
+            if (no == null)
+            {
+                return no;
+            }
+
+            if (valor < no.valor)
+            {
+                no.Esquerdo = RemoverRecursivo(no.Esquerdo, valor);
+            }
+            else if (valor > no.valor)
+            {
+                no.Direito = RemoverRecursivo(no.Direito, valor);
+            }
+            else
+            {
+                if (no.Esquerdo == null || no.Direito == null)
+                {
+                    No temp;
+                    if (no.Esquerdo != null)
+                    {
+                        temp = no.Esquerdo;
+                    }   
+                    else
+                    {
+                        temp = no.Direito;
+                    }
+                    
+                    if(temp == null){
+                        //Quando nao tem filho
+                        no = null;
+                    }
+                    else{
+                        //So tem 1 filho
+                        no = temp;
+                    }
+                }
+                else
+                {
+                    No temp = MinValorNo(no.Direito);
+                    no.valor = temp.valor;
+                    no.Direito = RemoverRecursivo(no.Direito, temp.valor);
+                }
+
+            }
+
+            if(no == null)
+            {
+                return null;
+            }
+
+            no.altura = 1 + Math.Max(Altura(no.Esquerdo), Altura(no.Direito));
+
+            int fb = FatorBalanceamento(no);
+
+            // Rotação LL
+            if (fb > 1 && FatorBalanceamento(no.Esquerdo) >= 0)
+                return RotacionarDireita(no);
+
+            // Rotação LR
+            if (fb > 1 && FatorBalanceamento(no.Esquerdo) < 0)
+            {
+                no.Esquerdo = RotacionarEsquerda(no.Esquerdo);
+                return RotacionarDireita(no);
+            }
+
+            // Rotação RR
+            if (fb < -1 && FatorBalanceamento(no.Direito) <= 0)
+                return RotacionarEsquerda(no);
+
+            // Rotação RL
+            if (fb < -1 && FatorBalanceamento(no.Direito) > 0)
+            {
+                no.Direito = RotacionarDireita(no.Direito);
+                return RotacionarEsquerda(no);
+            }
+
+            return no;
+        }
+        private No MinValorNo(No no)
+        {
+            No atual = no;
+            while (atual.Esquerdo != null)
+                atual = atual.Esquerdo;
+            return atual;
+        }      
         public void ImprimirPreOrdem()
         {
             PreOrdem(Raiz);

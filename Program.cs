@@ -42,8 +42,19 @@ namespace arvoreAVL
                         case "B":
                             if (partes.Length > 1 && int.TryParse(partes[1], out int valor))
                             {
-                                if (comando == "I") arvore.Inserir(valor);
-                                //Adicionar 'R' e 'B' dps
+                                if (comando == "I")
+                                {
+                                    arvore.Inserir(valor);
+                                }
+                                else if(comando == "B")
+                                {
+                                    arvore.Buscar(valor);
+                                }
+                                else if(comando == "R")
+                                {
+                                    arvore.Remover(valor);
+                                }
+                                
                             }
                             else
                             {
