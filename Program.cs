@@ -38,23 +38,32 @@ namespace arvoreAVL
                     switch (comando)
                     {
                         case "I":
-                        case "R":
-                        case "B":
-                            if (partes.Length > 1 && int.TryParse(partes[1], out int valor))
+                            if (partes.Length > 1 && int.TryParse(partes[1], out int valorInserir))
                             {
-                                if (comando == "I")
-                                {
-                                    arvore.Inserir(valor);
-                                }
-                                else if(comando == "B")
-                                {
-                                    arvore.Buscar(valor);
-                                }
-                                else if(comando == "R")
-                                {
-                                    arvore.Remover(valor);
-                                }
+                                arvore.Inserir(valorInserir);
+                            }
+                            else
+                            {
+                                Console.WriteLine($"Comando '{comando}' malformado ou com valor inválido: {linha}");
+                            }
+                            break;
+                        case "R":
+
+                            if (partes.Length > 1 && int.TryParse(partes[1], out int valorRemover))
+                            {
                                 
+                                arvore.Remover(valorRemover);
+                            }
+                            else
+                            {
+                                Console.WriteLine($"Comando '{comando}' malformado ou com valor inválido: {linha}");
+                            }
+                            break;
+
+                        case "B":
+                            if (partes.Length > 1 && int.TryParse(partes[1], out int valorBuscar))
+                            {
+                                arvore.Buscar(valorBuscar);
                             }
                             else
                             {
@@ -68,7 +77,14 @@ namespace arvoreAVL
                             Console.WriteLine();
                             break;
 
-                        // Adicionar os casos 'F' e 'H' aqui
+                        case "F":
+                            arvore.ImprimirFatoresBalanceamento();
+                            break;
+
+                        case "H":
+                            int altura = arvore.ImprimirAltura();
+                            Console.WriteLine($"Altura da árvore: {altura}");
+                            break;
 
                         default:
                             Console.WriteLine($"Comando inválido ou não implementado: {linha}");

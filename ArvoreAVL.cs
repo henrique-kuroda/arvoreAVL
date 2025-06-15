@@ -243,14 +243,27 @@ namespace arvoreAVL
                 PreOrdem(no.Direito);
             }
         }
+
+        private void FatorBalanceamentoCompleto(No no)
+        {
+            if (no != null)
+            {
+                Console.WriteLine($"Nó {no.valor}: Fator de balanceamento {Altura(no.Esquerdo) - Altura(no.Direito)}");
+                FatorBalanceamentoCompleto(no.Esquerdo);
+                FatorBalanceamentoCompleto(no.Direito);
+                return;
+            }
+        } 
+
         public void ImprimirFatoresBalanceamento()
         {
-
+            FatorBalanceamentoCompleto(Raiz);
         }
 
-        public void ImprimirAltura()
+        public int ImprimirAltura()
         {
-
+            int valorAltura = Altura(Raiz);
+            return valorAltura;
         }
 
 
