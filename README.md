@@ -28,7 +28,7 @@ Exibe a altura atual da árvore AVL, um indicador direto de sua eficiência estr
 - No.cs — Define o nó da árvore AVL.
 - ArvoreAVL.cs — Contém a lógica da árvore AVL (inserção, remoção, balanceamento, etc).
 - Program.cs — Interface de execução, que lê um arquivo de comandos e executa as operações na árvore.
-- Entrada.txt — Arquivo de entrada com comandos de teste (exemplo no final deste arquivo).
+- Entrada.txt — Arquivo de entrada com comandos de teste.
 
 
 RA's:
